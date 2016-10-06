@@ -10,11 +10,13 @@ import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author user
  */
+@Repository
 public class UserRoleDaoImpl implements UserRoleDao{
 
     Session session;
