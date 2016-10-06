@@ -33,12 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.csrf().disable();
             http.authorizeRequests()
-//                .antMatchers("/assets/*/**").permitAll()
-                .antMatchers("/static/**").permitAll()
-                .antMatchers("/signup").permitAll()
-                .antMatchers("/admin").access("hasRole('ADMIN')")
-                .and().formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/home", false);			
+                .antMatchers("/**").permitAll();
+//                .antMatchers("/static/**").permitAll()
+//                .antMatchers("/signup").permitAll()
+//                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+//                .and().formLogin().loginPage("/login").permitAll()
+//                .defaultSuccessUrl("/admin/home", false);			
 	}
 
 	@Autowired
@@ -81,6 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         user = userService.byUsername(string);
                     }catch(Exception ex){
                         System.out.println("user not found or error");
+                        ex.printStackTrace();
                         throw new UsernameNotFoundException("can't find user@username"+string);
                     }
                     if(user == null){

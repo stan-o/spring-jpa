@@ -6,6 +6,8 @@
 package com.so.webblog.domain;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,16 +20,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
  * @author user
  */
 @Entity
-@Table(name = "user")
+@Table(name = "`user`")
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")})
-public class User implements Serializable {
+public class User implements Serializable, GrantedAuthority, UserDetails {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -90,6 +94,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -97,7 +102,8 @@ public class User implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
+    @Override
     public String getPassword() {
         return password;
     }
@@ -186,6 +192,41 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phone=" + phone + ", active=" + active + ", idUserRole=" + idUserRole + ", userRole=" + userRole + '}';
+    }
+
+    @Override
+    public String getAuthority() {
+        String auth = "";
+        for(RoleName n : userRole.getRoleNameList()){
+            auth+=(n.getRoleName() + ", ");
+        }
+//        return auth.substring(0, auth.length()-1);
+        return userRole.getNameUserRole();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new GrantedAuthority[]{this});
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     

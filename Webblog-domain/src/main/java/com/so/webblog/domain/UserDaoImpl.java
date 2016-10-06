@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User byUsername(String username) {
-        return (User)session.createCriteria(User.class).add(Restrictions.eq("login", username)).uniqueResult();
+        return (User)session.createCriteria(User.class).add(Restrictions.eq("username", username)).uniqueResult();
     }
 
     @Override
