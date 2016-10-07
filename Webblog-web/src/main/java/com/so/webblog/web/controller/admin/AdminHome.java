@@ -16,7 +16,7 @@ public class AdminHome {
     @Autowired
     private UserService userService;
     
-    @RequestMapping(value={"/admin","/admin/home"})
+    @RequestMapping(value={"/admin","/admin/home","/admin/users"})
     public ModelAndView adminHome(){
         ModelAndView mv = new ModelAndView("admin/home");
         mv.addObject("users", userService.list());

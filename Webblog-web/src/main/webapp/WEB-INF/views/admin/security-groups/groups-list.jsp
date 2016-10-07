@@ -32,63 +32,63 @@
             }
             .main-content{
                 float: right;
-                width: 83%;
+                width: 82%;
             }
+            .head-left{
+                width: 240px;
+            }
+            .fit-content{
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+            .tbl-right{
+                width: 600px;
+            }
+            .tbl-user{
+                width: 840px;
+            }
+            .tbl-user-label{
+                float: right;
+                margin-right: 30px;
+            }
+            .chbox-medium{
+                width: 20px;
+                height: 20px;
+            }
+            
         </style>
     </head>
     <body>
-        <%@include file="common/header-nav.jsp" %>
-        <div class="container-fluid">
+        <%@include file="../common/header-nav.jsp" %>        
+        <div class="container-fluid fit-content">
             <div class="row">
-                <%@include file="common/left_sidebar.jsp" %>
+                <%@include file="../common/left_sidebar.jsp" %>
                 <div class="row">
                     <div class="main main-content">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered tbl-user">                                                   
                                 <thead>
                                     <tr class="info">
-                                        <th>#</th>
-                                        <th>Login</th>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>email</th>
-                                        <th>phone</th>
-                                        <th>Group</th>
-                                        <th>State</th>
-                                        <th>Edit</th>
-                                        <th>Remove</th>
+                                        <th class="head-left">#</th>
+                                        <th class="tbl-right">Group</th>
+                                        <th class="tbl-right">Edit</th>
+                                        <th class="tbl-right">Remove</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="user" items="${users}">
-                                        <tr>
-                                            <td>${user.id}</td>
-                                            <td>${user.username}</td>
-                                            <td>${user.firstname}</td>
-                                            <td>${user.lastname}</td>
-                                            <td>${user.email}</td>
-                                            <td>${user.phone}</td>
-                                            <td>${user.userRole.nameUserRole}</td>
-                                            <!--<td>-->
-                                            <c:choose>
-                                                <c:when test="${user.active}">
-                                                    <td class="success">active</td>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <td class="danger">disabled</td>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <!--</td>-->
-                                            
+                                    <c:forEach var="group" items="${groups}">
+                                        <tr class="info">
                                             <td>
-                                                <a class="btn btn-primary" href="user/edit/${user.id}">
-                                                    Edit
-                                                </a>
+                                                ${group.id}
                                             </td>
                                             <td>
-                                                <div class="btn btn-danger">
-                                                    Remove
-                                                </div>
+                                                ${group.nameUserRole}
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary">Edit</button>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary">Remove</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
