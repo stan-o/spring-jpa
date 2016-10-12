@@ -5,23 +5,23 @@
  */
 package com.so.webblog.conf;
 
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-//import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-//import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  *
  * @author user
  */
-//@Configuration
-//@EnableWebMvc
-//public class StaticResourcesConfigurer extends WebMvcConfigurerAdapter {
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry
-//          .addResourceHandler("/static/**")
-//          .addResourceLocations("/static/");    
-//    }
-//}
+@Configuration
+@EnableWebMvc
+public class StaticResourcesConfigurer extends WebMvcConfigurerAdapter {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+          .addResourceHandler("/static/**")
+          .addResourceLocations("/static/");    
+    }
+}
 

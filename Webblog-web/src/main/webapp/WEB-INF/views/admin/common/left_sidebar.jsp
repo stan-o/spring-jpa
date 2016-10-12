@@ -16,6 +16,7 @@
         <li class="active"><a href="${base}/admin/users">Users <span class="sr-only">(current)</span></a></li>
         <li><a href="${base}/admin/groups">Security Groups</a></li>
         <li><a href="${base}/admin/postings">Postings</a></li>
+        <li><a href="${base}/admin/sessions">My Sessions</a></li>
         <li><a href="${base}/admin/config">Configuration</a></li>
     </ul>
 </div>

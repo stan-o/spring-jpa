@@ -22,6 +22,9 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+<!--        <script src="${base}/static/angular.js"></script>
+        <script src="${base}/static/angularapp/app.js"></script>
+        <script src="${base}/static/angularapp/controllers/home-controller.js"></script>-->
         <script type="text/javascript">
             
         </script>
@@ -81,7 +84,7 @@
                                             <!--</td>-->
                                             
                                             <td>
-                                                <a class="btn btn-primary" href="user/edit/${user.id}">
+                                                <a class="btn btn-primary" href="${base}/admin/user/edit/${user.id}">
                                                     Edit
                                                 </a>
                                             </td>
@@ -94,6 +97,9 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
+                            <a class="btn btn-primary" href="${base}/admin/user/edit/0">
+                                Add user
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@
  */
 package com.so.webblog.conf;
 
+import com.so.webblog.info.UserSessionStorage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,11 @@ public class WebConfig {
         resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".jsp");
         return resolver;
+    }
+    
+    @Bean
+    public UserSessionStorage sessionStorage(){
+        return new UserSessionStorage();
     }
     
 }

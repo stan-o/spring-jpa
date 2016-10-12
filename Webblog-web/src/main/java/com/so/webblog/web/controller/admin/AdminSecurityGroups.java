@@ -9,6 +9,7 @@ import com.so.webblog.service.UserRoleNameService;
 import com.so.webblog.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +29,13 @@ public class AdminSecurityGroups {
     public ModelAndView getSecurityGroups(){
         ModelAndView mv = new ModelAndView("admin/security-groups/groups-list");
         mv.addObject("groups", userRoleService.list());
+        return mv;
+    }
+    
+    @RequestMapping(value = "/admin/groups/{id}")
+    public ModelAndView getSecurityGroup(@PathVariable Integer id){
+        ModelAndView mv = new ModelAndView("admin/security-groups/groups-edit");
+        mv.addObject("group", userRoleService.byId(id));
         return mv;
     }
 }

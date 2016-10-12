@@ -69,23 +69,20 @@
                             <table class="table table-bordered tbl-user">                                                   
                                 <thead>
                                     <tr class="info">
-                                        <th class="head-left">#</th>
-                                        <th class="tbl-right">Group</th>
-                                        <th class="tbl-right">Edit</th>
+                                        <th class="head-left">ID</th>
+                                        <th class="tbl-right">Device</th>
                                         <th class="tbl-right">Remove</th>
                                     </tr>
                                 </thead>
+                                
                                 <tbody>
-                                    <c:forEach var="group" items="${groups}">
+                                    <c:forEach var="session" begin="0" end="${len-1}" step="1">
                                         <tr class="info">
                                             <td>
-                                                ${group.id}
+                                                ${sessions[session]}
                                             </td>
                                             <td>
-                                                ${group.nameUserRole}
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary" href="${base}/admin/groups/${group.id}">Edit</a>
+                                                ${sessionsInfo[session].device}
                                             </td>
                                             <td>
                                                 <button class="btn btn-primary">Remove</button>
