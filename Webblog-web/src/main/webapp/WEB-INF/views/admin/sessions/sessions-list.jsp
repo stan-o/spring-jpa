@@ -57,6 +57,18 @@
             }
             
         </style>
+        <script type="text/javascript">
+            function invalidateSession(sid){
+                $.post(
+                    "/blog/admin/sessions/invalidate",
+                    {sid:sid},
+                    function(data){
+                        console.log(data);
+                        console.log("session " + sid + " invalidated");
+                    }
+                );
+            }
+        </script>
     </head>
     <body>
         <%@include file="../common/header-nav.jsp" %>        
@@ -85,7 +97,7 @@
                                                 ${sessionsInfo[session].device}
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary">Remove</button>
+                                                <button class="btn btn-primary" onclick="invalidateSession('${sessions[session]}')">Invalidate</button>
                                             </td>
                                         </tr>
                                     </c:forEach>

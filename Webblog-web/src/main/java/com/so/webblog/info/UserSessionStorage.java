@@ -34,7 +34,13 @@ public class UserSessionStorage {
     }
     
     public static void removeAuthentication(User user, String sessionId){
-        userSessions.get(user).remove(sessionId);
+        Map origins = userSessions.get(user);
+        origins.remove(sessionId);
+        if(origins.isEmpty()){
+            userSessions.remove(user);
+        }else{
+            userSessions.put(user, origins);
+        }
     }
     
     public static void removeAllAuthentications(User user){
