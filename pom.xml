@@ -8,8 +8,8 @@
     <modules>
         <module>Webblog-domain</module>
         <module>Webblog-service</module>
-    <module>Webblog-web</module>
-  </modules>
+        <module>Webblog-web</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

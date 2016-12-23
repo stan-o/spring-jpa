@@ -1,9 +1,3 @@
-<%-- 
-    Document   : home
-    Created on : Oct 6, 2016, 12:06:37 PM
-    Author     : user
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -40,10 +34,10 @@
         </style>
     </head>
     <body>
-        <%@include file="common/header-nav.jsp" %>
+        <%@include file="../common/header-nav.jsp" %>
         <div class="container-fluid">
             <div class="row">
-                <%@include file="common/left_sidebar.jsp" %>
+                <%@include file="../common/left_sidebar.jsp" %>
                 <div class="row">
                     <div class="main main-content">
                         <div class="table-responsive">
@@ -51,44 +45,22 @@
                                 <thead>
                                     <tr class="info">
                                         <th>#</th>
-                                        <th>Login</th>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>email</th>
-                                        <th>phone</th>
-                                        <th>Group</th>
-                                        <th>State</th>
+                                        <th>Owner</th>
+                                        <th>Title</th>
+                                        <th>Resource</th>
                                         <th>Edit</th>
                                         <th>Remove</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="user" items="${users}">
+                                    <c:forEach var="posting" items="${postings}">
                                         <tr>
-                                            <td>${user.id}</td>
-                                            <td>${user.username}</td>
-                                            <td>${user.firstname}</td>
-                                            <td>${user.lastname}</td>
-                                            <td>${user.email}</td>
-                                            <td>${user.phone}</td>
+                                            <td>${posting.id}</td>
+                                            <td>${posting.user.username}</td>
+                                            <td>${posting.title}</td>
+                                            <td><span>${posting.resource}</span></td>
                                             <td>
-                                                <c:forEach var="role" items="${user.userRolesList}">
-                                                    ${role.rolename}&nbsp;
-                                                </c:forEach>
-                                            </td>
-                                            <!--<td>-->
-                                            <c:choose>
-                                                <c:when test="${user.active}">
-                                                    <td class="success">active</td>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <td class="danger">disabled</td>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <!--</td>-->
-                                            
-                                            <td>
-                                                <a class="btn btn-primary" href="${base}/admin/user/edit/${user.id}">
+                                                <a class="btn btn-primary" href="${base}/admin/user/edit/${posting.id}">
                                                     Edit
                                                 </a>
                                             </td>
@@ -101,8 +73,8 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-                            <a class="btn btn-primary" href="${base}/admin/user/edit/0">
-                                Add user
+                            <a class="btn btn-primary" href="${base}/admin/postings/view/${posting.id}">
+                                Edit posting
                             </a>
                         </div>
                     </div>

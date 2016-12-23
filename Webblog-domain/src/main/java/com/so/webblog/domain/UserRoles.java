@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.so.webblog.domain;
 
 import java.io.Serializable;
@@ -18,16 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
 
-/**
- *
- * @author user
- */
+
 @Entity
-@Table(name = "role_name")
+@Table(name = "user_roles")
 @NamedQueries({
-    @NamedQuery(name = "RoleName.findAll", query = "SELECT r FROM RoleName r")})
-public class RoleName implements Serializable {
+    @NamedQuery(name = "UserRoles.findAll", query = "SELECT u FROM UserRoles u")})
+public class UserRoles implements Serializable,GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,16 +28,16 @@ public class RoleName implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "role_name")
-    private String roleName;
-    @JoinColumn(name = "id_user_role", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private UserRole userRole;
+    @Column(name = "rolename")
+    private String rolename;
+    @JoinColumn(name = "iduser", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
-    public RoleName() {
+    public UserRoles() {
     }
 
-    public RoleName(Integer id) {
+    public UserRoles(Integer id) {
         this.id = id;
     }
 
@@ -56,20 +49,20 @@ public class RoleName implements Serializable {
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getRolename() {
+        return rolename;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -79,14 +72,14 @@ public class RoleName implements Serializable {
         return hash;
     }
 
-    @Override
     @SuppressWarnings("PMD")
+    @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof RoleName)) {
+        if (!(object instanceof UserRoles)) {
             return false;
         }
-        RoleName other = (RoleName) object;
+        UserRoles other = (UserRoles) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -95,7 +88,12 @@ public class RoleName implements Serializable {
 
     @Override
     public String toString() {
-        return "com.so.webblog.domain.RoleName[ id=" + id + " ]";
+        return "com.so.webblog.domain.UserRoles[ id=" + id + " ]";
+    }
+
+    @Override
+    public String getAuthority() {
+        return rolename;
     }
     
 }

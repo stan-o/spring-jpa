@@ -2,7 +2,6 @@ package com.so.webblog.service;
 
 import com.so.webblog.domain.User;
 import com.so.webblog.domain.UserDao;
-import java.io.Serializable;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +11,13 @@ import org.springframework.stereotype.Service;
  * @author user
  */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserDao userDao;
 
     @Override
-    public User byId(Serializable id) {
+    public User byId(Integer id) {
         return userDao.byId(id);
     }
 
@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void save(User u) {
-        userDao.save(u);
+    public Integer save(User u) {
+        return (Integer)userDao.save(u);
     }
 
     @Override
@@ -43,6 +43,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void delete(User u) {
-        userDao.delete(u);
+        userDao.remove(u);
     }
 }

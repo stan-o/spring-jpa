@@ -1,65 +1,86 @@
-package com.so.webblog.domain;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.so.elasticsearchsynctest;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.springframework.data.elasticsearch.annotations.Document;
 
+/**
+ *
+ * @author user
+ */
 @Entity
 @Table(name = "user")
-public class User implements Serializable, UserDetails {
+@NamedQueries({
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")})
+@Document(indexName = "user")
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @org.springframework.data.annotation.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
-    
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
-    
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "firstname")
     private String firstname;
-    
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "lastname")
     private String lastname;
-    
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
-    
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "phone")
     private String phone;
-    
     @Basic(optional = false)
+    @NotNull
     @Column(name = "active")
     private boolean active;
-    
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<UserRoles> userRolesList;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Postings> postingsList;
+    @Column(name = "id_user_role")
+    private Integer idUserRole;
+    @JoinColumn(name = "user_role_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserRole userRole;
 
     public User() {
     }
@@ -143,53 +164,20 @@ public class User implements Serializable, UserDetails {
         this.active = active;
     }
 
-    public List<UserRoles> getUserRolesList() {
-        return userRolesList;
+    public Integer getIdUserRole() {
+        return idUserRole;
     }
 
-    public void setUserRolesList(List<UserRoles> userRolesList) {
-        this.userRolesList = userRolesList;
-    }
-    
-    public List<Postings> getPostingsList() {
-        return postingsList;
+    public void setIdUserRole(Integer idUserRole) {
+        this.idUserRole = idUserRole;
     }
 
-    public void setPostingsList(List<Postings> postingsList) {
-        this.postingsList = postingsList;
-    }
-    
-    
-    @Override
-    @SuppressWarnings("PMD")
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        String[] roles = new String[userRolesList.size()];
-//        for(int i = 0; i < roles.length; i++){
-//            roles[i] = userRolesList.get(i).getRolename();
-//        }
-//        return AuthorityUtils.createAuthorityList(roles);
-
-        return userRolesList;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     @Override
@@ -215,6 +203,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String toString() {
-        return "com.so.webblog.domain.User[ id=" + id + " ]";
-    } 
+        return "com.so.elasticsearchsynctest.User[ id=" + id + " ]";
+    }
+    
 }

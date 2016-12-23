@@ -1,4 +1,9 @@
-package com.so.webblog.domain;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.so.elasticsearchsynctest;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -32,13 +39,16 @@ public class UserRole implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "id_role_name")
     private String idRoleName;
+    @Size(max = 45)
     @Column(name = "name_user_role")
     private String nameUserRole;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRole", fetch = FetchType.LAZY)
     private List<RoleName> roleNameList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRole", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userRole", fetch = FetchType.LAZY)
     private List<User> userList;
 
     public UserRole() {
@@ -100,8 +110,8 @@ public class UserRole implements Serializable {
         return hash;
     }
 
-    @Override
     @SuppressWarnings("PMD")
+    @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof UserRole)) {
@@ -116,7 +126,7 @@ public class UserRole implements Serializable {
 
     @Override
     public String toString() {
-        return "com.so.webblog.domain.UserRole[ id=" + id + " ]";
+        return "com.so.elasticsearchsynctest.UserRole[ id=" + id + " ]";
     }
     
 }

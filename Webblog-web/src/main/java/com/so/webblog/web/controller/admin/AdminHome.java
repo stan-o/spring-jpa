@@ -3,6 +3,7 @@ package com.so.webblog.web.controller.admin;
 import com.so.webblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,10 +18,10 @@ public class AdminHome {
     private UserService userService;
     
     @RequestMapping(value={"/admin","/admin/home","/admin/users"})
+    @Transactional
     public ModelAndView adminHome(){
         ModelAndView mv = new ModelAndView("admin/home");
         mv.addObject("users", userService.list());
-//        return "admin/home";
         return mv;
     }
     

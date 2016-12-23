@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.so.webblog.conf;
 
 import com.so.webblog.domain.User;
@@ -26,10 +21,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Autowired
@@ -39,9 +35,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.csrf().disable();
             http.authorizeRequests()
-//                .antMatchers("/**").permitAll()
-//                .antMatchers("/static/**").permitAll()
-//                .antMatchers("/signup").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .and().formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/admin/home", false).and().logout().logoutUrl("/logout");
@@ -90,6 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             UserDetailsService detailsService = new UserDetailsService() {
                 
                 @Override
+                @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
                 public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
                     User user = null;
                     try{

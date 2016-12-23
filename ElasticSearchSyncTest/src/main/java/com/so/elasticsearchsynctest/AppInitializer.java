@@ -1,17 +1,17 @@
-package com.so.webblog.conf;
+package com.so.elasticsearchsynctest;
 
-import com.so.webblog.config.WebblogDataSourceConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  *
  * @author user
  */
-public class BlogAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
+
+public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{WebConfig.class,WebblogDataSourceConfig.class};
+        return new Class[]{WebConfig.class};
     }
 
     @Override
