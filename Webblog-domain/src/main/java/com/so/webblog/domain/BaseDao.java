@@ -14,6 +14,5 @@ public interface BaseDao<T, I> {
     void update(T object);
     @Transactional
     void remove(T object);
-    @Transactional
     List<T> list();
 }

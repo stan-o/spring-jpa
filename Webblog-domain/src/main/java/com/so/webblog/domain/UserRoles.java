@@ -4,22 +4,15 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 
 
 @Entity
 @Table(name = "user_roles")
-@NamedQueries({
-    @NamedQuery(name = "UserRoles.findAll", query = "SELECT u FROM UserRoles u")})
 public class UserRoles implements Serializable,GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
@@ -28,11 +21,14 @@ public class UserRoles implements Serializable,GrantedAuthority {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @Column(name = "iduser")
+    private Integer iduser;
     @Column(name = "rolename")
     private String rolename;
-    @JoinColumn(name = "iduser", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+//    @JoinColumn(name = "iduser", referencedColumnName = "id")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private User user;
 
     public UserRoles() {
     }
@@ -57,13 +53,23 @@ public class UserRoles implements Serializable,GrantedAuthority {
         this.rolename = rolename;
     }
 
-    public User getUser() {
-        return user;
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+
+    public Integer getIduser() {
+        return iduser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIduser(Integer idUser) {
+        this.iduser = idUser;
     }
+    
+    
 
     @Override
     public int hashCode() {

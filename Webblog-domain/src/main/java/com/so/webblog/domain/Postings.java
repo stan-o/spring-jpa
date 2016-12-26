@@ -42,7 +42,7 @@ public class Postings implements Serializable {
     @Column(name = "title")
     private String title;
     @JoinColumn(name = "id_user", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
 
     public Postings() {

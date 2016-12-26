@@ -60,7 +60,6 @@ public abstract class AbstractDao<T, I extends Serializable> implements BaseDao<
         session.delete(object);
     }
 
-    @Transactional
     @Override
     public List<T> list() {
         Session session = getCurrentSession();

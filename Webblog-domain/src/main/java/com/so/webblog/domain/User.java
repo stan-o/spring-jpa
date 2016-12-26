@@ -55,8 +55,8 @@ public class User implements Serializable, UserDetails {
     @Column(name = "active")
     private boolean active;
     
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<UserRoles> userRolesList;
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private transient List<UserRoles> userRolesList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Postings> postingsList;

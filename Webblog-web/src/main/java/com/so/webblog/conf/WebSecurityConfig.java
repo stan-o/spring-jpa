@@ -21,7 +21,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
@@ -83,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             UserDetailsService detailsService = new UserDetailsService() {
                 
                 @Override
-                @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+                @Transactional(readOnly = true)
                 public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
                     User user = null;
                     try{
